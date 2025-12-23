@@ -8,15 +8,5 @@ position = Vector2(6, 2)
 
 [node name="Anc" parent="." instance=ExtResource("1_fj7yv")]
 position = Vector2(-6, -2)
-
-[node name="Seg1" parent="." node_paths=PackedStringArray("attachment_node") instance=ExtResource("2_fj7yv")]
-position = Vector2(-6, 14)
-attachment_node = NodePath("../Anc")
-
-[node name="Seg2" parent="." node_paths=PackedStringArray("attachment_node") instance=ExtResource("2_fj7yv")]
-position = Vector2(-6, 40)
-attachment_node = NodePath("../Seg1")
-
-[node name="Seg3" parent="." node_paths=PackedStringArray("attachment_node") instance=ExtResource("2_fj7yv")]
-position = Vector2(-6, 66)
-attachment_node = NodePath("../Seg2")
+segment_scene = ExtResource("2_fj7yv")
+segment_count = 8

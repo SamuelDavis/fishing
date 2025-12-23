@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bu11e7o4rfbn3"]
+[gd_scene load_steps=4 format=3 uid="uid://bu11e7o4rfbn3"]
 
 [ext_resource type="Script" uid="uid://c4uqwm8qr021l" path="res://rope_anchor.gd" id="1_i62sg"]
+[ext_resource type="Texture2D" uid="uid://cd8pu5w5eggku" path="res://icon.svg" id="2_0vrrh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fj7yv"]
 size = Vector2(30, 30)
@@ -16,3 +17,13 @@ offset_bottom = 16.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_fj7yv")
+
+[node name="Start" type="Marker2D" parent="."]
+position = Vector2(0, 15)
+
+[node name="End" type="Marker2D" parent="."]
+position = Vector2(0, 15)
+
+[node name="Icon" type="Sprite2D" parent="End"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_0vrrh")
