@@ -6,6 +6,7 @@
 size = Vector2(14, 14)
 
 [node name="RopeAnchor" type="AnimatableBody2D"]
+sync_to_physics = false
 script = ExtResource("1_i62sg")
 
 [node name="Button" type="Button" parent="."]
@@ -16,3 +17,5 @@ offset_right = 8.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_fj7yv")
+
+[node name="Line2D" type="Line2D" parent="."]

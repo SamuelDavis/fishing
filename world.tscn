@@ -1,29 +1,65 @@
-[gd_scene load_steps=5 format=3 uid="uid://m0oovbch66wx"]
+[gd_scene load_steps=11 format=3 uid="uid://m0oovbch66wx"]
 
 [ext_resource type="PackedScene" uid="uid://bu11e7o4rfbn3" path="res://RopeAnchor.tscn" id="1_fj7yv"]
 [ext_resource type="PackedScene" uid="uid://dnrcjmxnpr1pj" path="res://RopeSegment.tscn" id="2_fj7yv"]
 [ext_resource type="PackedScene" uid="uid://domrujvnym6sf" path="res://cat.tscn" id="3_tlwt5"]
+[ext_resource type="Texture2D" uid="uid://cd8pu5w5eggku" path="res://icon.svg" id="4_036b0"]
+[ext_resource type="Script" uid="uid://310k1o1eib5b" path="res://character_body_2d.gd" id="4_aqk2v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tlwt5"]
-radius = 2.0
+radius = 7.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
+friction = 2.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tlwt5"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_aqk2v"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_036b0"]
 
 [node name="World" type="Node2D"]
 
 [node name="Cat" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_tlwt5")]
-position = Vector2(116, 293)
-target = NodePath("../Anc")
+position = Vector2(116, 263)
+target = NodePath("../Anc/End")
 
 [node name="Anc" parent="." node_paths=PackedStringArray("end") instance=ExtResource("1_fj7yv")]
 position = Vector2(124, 54)
+collision_layer = 0
+collision_mask = 0
+rope_segments = 8
 rope_segment_scene = ExtResource("2_fj7yv")
 end = NodePath("End")
 
 [node name="End" type="RigidBody2D" parent="Anc"]
-position = Vector2(0, 59)
-mass = 1.5
+mass = 2.0
+
+[node name="Icon" type="Sprite2D" parent="Anc/End"]
+scale = Vector2(0.120000005, 0.120000005)
+texture = ExtResource("4_036b0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Anc/End"]
 shape = SubResource("CircleShape2D_tlwt5")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Anc/End"]
 node_b = NodePath("..")
+
+[node name="WorldBounds" type="StaticBody2D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_tlwt5")
+
+[node name="Bottom" type="CollisionShape2D" parent="WorldBounds"]
+position = Vector2(0, 320)
+shape = SubResource("WorldBoundaryShape2D_tlwt5")
+
+[node name="Left" type="CollisionShape2D" parent="WorldBounds"]
+rotation = 1.5707964
+shape = SubResource("WorldBoundaryShape2D_aqk2v")
+
+[node name="Right" type="CollisionShape2D" parent="WorldBounds"]
+position = Vector2(240, 0)
+rotation = -1.5707964
+shape = SubResource("WorldBoundaryShape2D_036b0")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("4_aqk2v")
