@@ -24,6 +24,14 @@ window/size/window_height_override=640
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[layer_names]
+
+2d_physics/layer_1="World"
+2d_physics/layer_2="Anchor"
+2d_physics/layer_3="End"
+2d_physics/layer_4="Cat"
+2d_physics/layer_5="Rope"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

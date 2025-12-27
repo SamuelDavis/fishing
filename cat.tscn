@@ -1,6 +1,6 @@
 [gd_scene load_steps=44 format=3 uid="uid://domrujvnym6sf"]
 
-[ext_resource type="Script" uid="uid://d28bqhmmqjt7b" path="res://cat.gd" id="1_52fj1"]
+[ext_resource type="Script" uid="uid://cuj3svm53yx0n" path="res://cat.gd" id="1_52fj1"]
 [ext_resource type="Texture2D" uid="uid://coa6bi6qv42f6" path="res://AllCats.png" id="1_hcucf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_73ra0"]
@@ -317,7 +317,10 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_hcucf"]
 radius = 26.076809
 
-[node name="Cat" type="CharacterBody2D"]
+[node name="Cat" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 9
+lock_rotation = true
 script = ExtResource("1_52fj1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

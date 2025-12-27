@@ -1,12 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://bu11e7o4rfbn3"]
 
-[ext_resource type="Script" uid="uid://c4uqwm8qr021l" path="res://rope_anchor.gd" id="1_i62sg"]
+[ext_resource type="Script" uid="uid://cnmorcauwlqyp" path="res://rope_anchor.gd" id="1_i62sg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fj7yv"]
 size = Vector2(14, 14)
 
-[node name="RopeAnchor" type="AnimatableBody2D"]
-sync_to_physics = false
+[node name="RopeAnchor" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 2
+freeze = true
 script = ExtResource("1_i62sg")
 
 [node name="Button" type="Button" parent="."]
@@ -19,3 +21,4 @@ position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_fj7yv")
 
 [node name="Line2D" type="Line2D" parent="."]
+width = 5.0
