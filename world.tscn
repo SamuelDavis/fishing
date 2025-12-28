@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://m0oovbch66wx"]
+[gd_scene load_steps=9 format=3 uid="uid://m0oovbch66wx"]
 
 [ext_resource type="PackedScene" uid="uid://bu11e7o4rfbn3" path="res://RopeAnchor.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://b6psh0osfw46m" path="res://world.gd" id="1_fj7yv"]
 [ext_resource type="PackedScene" uid="uid://domrujvnym6sf" path="res://cat.tscn" id="3_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://76pff05dw4y5" path="res://caught.tscn" id="4_aqk2v"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
 friction = 2.0
@@ -15,6 +16,7 @@ friction = 2.0
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_fj7yv")
+caught_scene = ExtResource("4_aqk2v")
 
 [node name="WorldBounds" type="StaticBody2D" parent="."]
 collision_mask = 0
