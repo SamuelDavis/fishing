@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://m0oovbch66wx"]
+[gd_scene load_steps=8 format=3 uid="uid://m0oovbch66wx"]
 
 [ext_resource type="PackedScene" uid="uid://bu11e7o4rfbn3" path="res://RopeAnchor.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://b6psh0osfw46m" path="res://world.gd" id="1_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://domrujvnym6sf" path="res://cat.tscn" id="3_tlwt5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
 friction = 2.0
@@ -35,3 +36,6 @@ shape = SubResource("WorldBoundaryShape2D_036b0")
 [node name="RopeAnchor" parent="." instance=ExtResource("1_f3sb7")]
 position = Vector2(117, 33)
 freeze = false
+
+[node name="Cat" parent="." instance=ExtResource("3_tlwt5")]
+position = Vector2(145, 273)
