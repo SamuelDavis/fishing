@@ -1,24 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://bu11e7o4rfbn3"]
+[gd_scene load_steps=5 format=3 uid="uid://bu11e7o4rfbn3"]
 
-[ext_resource type="Script" uid="uid://cnmorcauwlqyp" path="res://rope_anchor.gd" id="1_i62sg"]
+[ext_resource type="Script" uid="uid://b5gfqsgyc0q5v" path="res://rope_anchor.gd" id="1_i62sg"]
+[ext_resource type="PackedScene" uid="uid://crj2coumj8whr" path="res://RopeEnd.tscn" id="2_0vrrh"]
+[ext_resource type="Texture2D" uid="uid://cd8pu5w5eggku" path="res://icon.svg" id="2_l52mi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fj7yv"]
-size = Vector2(14, 14)
+size = Vector2(16, 16)
 
 [node name="RopeAnchor" type="RigidBody2D"]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 3
 freeze = true
 script = ExtResource("1_i62sg")
 
-[node name="Button" type="Button" parent="."]
-offset_left = -8.0
-offset_top = -16.0
-offset_right = 8.0
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.13737385, 0.13737385)
+texture = ExtResource("2_l52mi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_fj7yv")
 
 [node name="Line2D" type="Line2D" parent="."]
-width = 5.0
+width = 8.0
+
+[node name="RopeEnd" parent="." instance=ExtResource("2_0vrrh")]
+freeze = false

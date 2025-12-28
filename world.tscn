@@ -1,9 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://m0oovbch66wx"]
+[gd_scene load_steps=7 format=3 uid="uid://m0oovbch66wx"]
 
-[ext_resource type="PackedScene" uid="uid://bu11e7o4rfbn3" path="res://RopeAnchor.tscn" id="1_fj7yv"]
-[ext_resource type="PackedScene" uid="uid://dnrcjmxnpr1pj" path="res://RopeSegment.tscn" id="2_fj7yv"]
-[ext_resource type="PackedScene" uid="uid://domrujvnym6sf" path="res://cat.tscn" id="3_tlwt5"]
-[ext_resource type="PackedScene" uid="uid://crj2coumj8whr" path="res://RopeEnd.tscn" id="4_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://bu11e7o4rfbn3" path="res://RopeAnchor.tscn" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://b6psh0osfw46m" path="res://world.gd" id="1_fj7yv"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tlwt5"]
 friction = 2.0
@@ -15,22 +13,10 @@ friction = 2.0
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_036b0"]
 
 [node name="World" type="Node2D"]
-
-[node name="Cat" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_tlwt5")]
-position = Vector2(116, 263)
-target = NodePath("../Anc/End")
-
-[node name="Anc" parent="." node_paths=PackedStringArray("end") instance=ExtResource("1_fj7yv")]
-position = Vector2(124, 54)
-collision_layer = 0
-collision_mask = 0
-rope_segments = 10
-rope_segment_scene = ExtResource("2_fj7yv")
-end = NodePath("End")
-
-[node name="End" parent="Anc" instance=ExtResource("4_aqk2v")]
+script = ExtResource("1_fj7yv")
 
 [node name="WorldBounds" type="StaticBody2D" parent="."]
+collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_tlwt5")
 
 [node name="Bottom" type="CollisionShape2D" parent="WorldBounds"]
@@ -45,3 +31,7 @@ shape = SubResource("WorldBoundaryShape2D_aqk2v")
 position = Vector2(240, 0)
 rotation = -1.5707964
 shape = SubResource("WorldBoundaryShape2D_036b0")
+
+[node name="RopeAnchor" parent="." instance=ExtResource("1_f3sb7")]
+position = Vector2(117, 33)
+freeze = false

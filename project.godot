@@ -21,11 +21,13 @@ window/size/viewport_width=240
 window/size/viewport_height=320
 window/size/window_width_override=480
 window/size/window_height_override=640
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 
 [layer_names]
 
+2d_render/layer_1="World"
+2d_render/layer_2="Rope"
 2d_physics/layer_1="World"
 2d_physics/layer_2="Anchor"
 2d_physics/layer_3="End"

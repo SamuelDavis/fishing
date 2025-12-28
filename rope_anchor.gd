@@ -1,90 +1,48 @@
 class_name RopeAnchor
 extends RigidBody2D
 
-@export var rope_segments: int = 6
-@export var rope_segment_scene: PackedScene
-@export var end: RopeEnd
-@export var speed: float = 450.0
-@export var dead_zone: float = 5.0
+@export var rope_segment_scene: PackedScene = preload("res://RopeSegment.tscn")
 
-@onready var button: Button = $Button
+@export var rope_segment_count: int = 6
+@export var rope_segment_length: float = 10.0
+@export var rope_width: float = 2.0
+
 @onready var line: Line2D = $Line2D
+@onready var rope_end: RopeEnd = $RopeEnd
 
-var _offset: Vector2 = Vector2.ZERO
-var _nodes: Array[Node] = []
-
-var attach_point: Node2D:
+var _rope_segments: Array[RopeSegment] = []
+var _curve: Curve2D:
 	get:
-		return self
-
-var direction: Vector2:
-	get:
-		return get_global_mouse_position() - global_position
+		var curve: Curve2D = Curve2D.new()
+		curve.add_point(line.to_local(global_position))
+		for node in _rope_segments:
+			curve.add_point(line.to_local(node.global_position))
+		return curve
 
 
 func _ready() -> void:
-	button.button_down.connect(_on_pressed)
-	_nodes = _build_rope()
+	# initialize children
+	for i in rope_segment_count:
+		var node: RopeSegment = rope_segment_scene.instantiate()
+		node.name = "RopeSegment%s" % i
+		add_child(node)
+		_rope_segments.append(node)
+	_rope_segments.append(rope_end)
+	move_child(rope_end, -1)
 
-
-func _physics_process(delta: float) -> void:
-	line.global_position = global_position
-	line.points = _get_curve().get_baked_points()
-
-	if not button.is_pressed():
-		return
-
-	var step = Vector2.ZERO
-	if direction.length() < dead_zone:
-		step = lerp(direction, Vector2.ZERO, 0.5)
-	else:
-		step = direction.normalized() * speed * delta
-
-	var collision: KinematicCollision2D = move_and_collide(step)
-	if collision:
-		print(collision.get_angle())
-
-
-func _on_pressed() -> void:
-	_offset = get_global_mouse_position() - global_position
-
-
-func _build_rope() -> Array[Node]:
-	var nodes: Array[Node] = []
-
+	# position children
 	var previous: Node2D = self
-	for i in rope_segments:
-		var segment: RopeSegment = rope_segment_scene.instantiate()
-		add_child(segment)
-		segment.global_position = previous.attach_point.global_position
-		segment.pin_joint.node_a = previous.get_path()
-		previous = segment
-		nodes.append(segment)
+	for node in _rope_segments:
+		node.global_position.y = previous.global_position.y + rope_segment_length + 10
+		node.pin_joint.node_a = previous.get_path()
+		node.size = rope_width
+		node.freeze = false
+		previous = node
 
-	end.global_position = previous.attach_point.global_position
-	end.attach_point.node_a = previous.get_path()
-	nodes.append(end)
-
-	return nodes
+	# initialize line
+	line.width = rope_width
 
 
-func _get_curve() -> Curve2D:
-	var curve: Curve2D = Curve2D.new()
-	var prev: Vector2
-	var curr: Vector2
-	var next: Vector2
-
-	for node in _nodes:
-		next = node.position
-		if prev and curr and next:
-			var tangent = (next - prev) / 10
-			curve.add_point(curr, -tangent, tangent)
-		prev = curr
-		curr = next
-
-	next = end.position
-	if prev and curr and next:
-		var tangent = (next - prev) / 10
-		curve.add_point(curr, -tangent, tangent)
-
-	return curve
+func _physics_process(_delta: float) -> void:
+	line.clear_points()
+	line.points = _curve.get_baked_points()
