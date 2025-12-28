@@ -22,3 +22,15 @@ var attached_node: Node2D:
 		return get_node(pin_joint.node_a)
 	set(node):
 		pin_joint.node_a = node.get_path()
+
+
+func _ready() -> void:
+	body_entered.connect(
+		func(body):
+			if body is Cat:
+				_on_cat_collision(body)
+	)
+
+
+func _on_cat_collision(body: Cat) -> void:
+	apply_force(body.velocity * 1000)

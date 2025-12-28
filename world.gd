@@ -4,8 +4,13 @@ extends Node2D
 @export var pulling_force: float = 20_000.0
 
 @onready var rope_anchor: RopeAnchor = $RopeAnchor
+@onready var cat: Cat = $Cat
 
 var _pulling: bool = false
+
+
+func _ready() -> void:
+	cat.target = rope_anchor.rope_end
 
 
 func _unhandled_input(event: InputEvent) -> void:
