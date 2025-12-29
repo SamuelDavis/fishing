@@ -13,6 +13,7 @@ var _pulling: bool = false
 func _ready() -> void:
 	cat.target = rope_anchor.rope_end
 	rope_anchor.rope_end.caught.connect(_on_caught)
+	rope_anchor.rope_end.loose.connect(_on_loose)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -28,11 +29,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_caught() -> void:
-	cat.visible = false
 	cat.process_mode = Node.PROCESS_MODE_DISABLED
-	var caught: Caught = caught_scene.instantiate()
-	call_deferred("add_child", caught)
-	await caught.ready
-	caught.global_position = rope_anchor.rope_end.global_position
-	caught.pin_joint.node_a = rope_anchor.rope_end.get_path()
-	move_child(caught, 1)
+	cat.visible = false
+
+
+func _on_loose() -> void:
+	cat.process_mode = Node.PROCESS_MODE_INHERIT
+	cat.visible = true
