@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://76pff05dw4y5"]
+[gd_scene load_steps=8 format=3 uid="uid://76pff05dw4y5"]
 
 [ext_resource type="Texture2D" uid="uid://coa6bi6qv42f6" path="res://AllCats.png" id="1_12m8m"]
-[ext_resource type="Script" uid="uid://bvh6b05nel3hp" path="res://caught.gd" id="1_i8nv6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_036b0"]
 atlas = ExtResource("1_12m8m")
@@ -46,7 +45,6 @@ radius = 25.0
 collision_layer = 0
 angular_damp_mode = 1
 angular_damp = 50.0
-script = ExtResource("1_i8nv6")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 node_b = NodePath("..")
