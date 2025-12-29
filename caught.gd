@@ -1,15 +1,8 @@
-class_name RopeSegment
+class_name Caught
 extends RigidBody2D
 
 @onready var collider: CollisionShape2D = $CollisionShape2D
-@onready var collider_shape: CircleShape2D = $CollisionShape2D.shape
 @onready var pin_joint: PinJoint2D = $PinJoint2D
-
-var width: float:
-	get:
-		return collider_shape.radius
-	set(value):
-		collider_shape.radius = value
 
 var attached_node: PhysicsBody2D:
 	get:

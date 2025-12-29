@@ -35,9 +35,11 @@ position = Vector2(240, 0)
 rotation = -1.5707964
 shape = SubResource("WorldBoundaryShape2D_036b0")
 
+[node name="Cat" parent="." instance=ExtResource("3_tlwt5")]
+position = Vector2(145, 273)
+
+[node name="Caught" parent="." instance=ExtResource("4_aqk2v")]
+
 [node name="RopeAnchor" parent="." instance=ExtResource("1_f3sb7")]
 position = Vector2(117, 33)
 freeze = false
-
-[node name="Cat" parent="." instance=ExtResource("3_tlwt5")]
-position = Vector2(145, 273)
