@@ -8,7 +8,6 @@
 [node name="RopeEnd" instance=ExtResource("1_7dl4s")]
 mass = 2.0
 script = ExtResource("1_unvnt")
-lost_grip_velocity = 500.0
 
 [node name="Caught" parent="." index="0" instance=ExtResource("3_licmi")]
 process_mode = 4

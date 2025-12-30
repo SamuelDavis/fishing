@@ -54,11 +54,11 @@ func _physics_process(delta: float) -> void:
 		if rope_end.linear_velocity.length() > loose_force:
 			_on_loose()
 	else:
-		var distance_delta: float = (
-			(cat.global_position - rope_end.global_position).length() - cat.collider_shape.radius
-		)
-		if distance_delta <= min_scoring_distance:
-			distance = min(distance, max(0, distance_delta))
+		var distance_vector: Vector2 = cat.global_position - rope_end.global_position
+		if distance_vector.is_zero_approx():
+			distance = INF
+		else:
+			min(distance, max(0, distance_vector.length() - cat.collider_shape.radius))
 
 
 func _on_caught() -> void:

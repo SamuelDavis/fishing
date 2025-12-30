@@ -11,8 +11,6 @@ collision_mask = 7
 freeze = true
 contact_monitor = true
 max_contacts_reported = 1
-linear_damp_mode = 1
-linear_damp = 4.0
 script = ExtResource("1_gvu33")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -20,3 +18,5 @@ shape = SubResource("CircleShape2D_q1rrs")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 node_b = NodePath("..")
+angular_limit_lower = -1.5707964
+angular_limit_upper = 1.5707964

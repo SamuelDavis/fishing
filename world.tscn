@@ -40,6 +40,7 @@ position = Vector2(177, 562)
 [node name="Caught" parent="." instance=ExtResource("4_aqk2v")]
 process_mode = 4
 visible = false
+mass = 10.0
 
 [node name="RopeAnchor" parent="." instance=ExtResource("1_f3sb7")]
 position = Vector2(117, 33)
