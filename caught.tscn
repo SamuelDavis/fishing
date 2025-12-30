@@ -1,7 +1,39 @@
-[gd_scene load_steps=9 format=3 uid="uid://76pff05dw4y5"]
+[gd_scene load_steps=17 format=3 uid="uid://76pff05dw4y5"]
 
 [ext_resource type="Texture2D" uid="uid://coa6bi6qv42f6" path="res://AllCats.png" id="1_12m8m"]
 [ext_resource type="Script" uid="uid://bvh6b05nel3hp" path="res://caught.gd" id="1_i8nv6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i8nv6"]
+atlas = ExtResource("1_12m8m")
+region = Rect2(0, 768, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bf568"]
+atlas = ExtResource("1_12m8m")
+region = Rect2(64, 768, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m58xm"]
+atlas = ExtResource("1_12m8m")
+region = Rect2(128, 768, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gkh5n"]
+atlas = ExtResource("1_12m8m")
+region = Rect2(192, 768, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha06q"]
+atlas = ExtResource("1_12m8m")
+region = Rect2(256, 768, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kmrvo"]
+atlas = ExtResource("1_12m8m")
+region = Rect2(320, 768, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayjew"]
+atlas = ExtResource("1_12m8m")
+region = Rect2(384, 768, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlhk5"]
+atlas = ExtResource("1_12m8m")
+region = Rect2(448, 768, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_036b0"]
 atlas = ExtResource("1_12m8m")
@@ -23,6 +55,35 @@ region = Rect2(192, 896, 64, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_i8nv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bf568")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m58xm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gkh5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ha06q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kmrvo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ayjew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlhk5")
+}],
+"loop": true,
+"name": &"chill",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_036b0")
 }, {
 "duration": 1.0,
@@ -35,7 +96,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_gbfbk")
 }],
 "loop": true,
-"name": &"default",
+"name": &"tickle",
 "speed": 5.0
 }]
 
@@ -53,8 +114,8 @@ node_b = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ioo17")
-autoplay = "default"
+animation = &"tickle"
+autoplay = "tickle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_i8nv6")
-disabled = true

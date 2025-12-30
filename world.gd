@@ -22,12 +22,16 @@ var _distance: float = INF
 var distance: float:
 	set(value):
 		_distance = value
-		distance_label.text = "Distance %s" % value
+		distance_label.text = "Distance %s" % str(value).to_upper()
 	get:
 		return _distance
 
 
 func _ready() -> void:
+	distance = INF
+	_disenable(cat, true)
+	_disenable(caught, false)
+
 	cat.target = rope_end
 	caught.global_position = rope_end.global_position
 	caught.attached_node = rope_end
@@ -55,18 +59,15 @@ func _physics_process(delta: float) -> void:
 			_on_loose()
 	else:
 		var distance_vector: Vector2 = cat.global_position - rope_end.global_position
-		if distance_vector.is_zero_approx():
-			distance = INF
-		else:
-			min(distance, max(0, distance_vector.length() - cat.collider_shape.radius))
+		distance = min(distance, max(0, distance_vector.length() - cat.collider_shape.radius))
 
 
 func _on_caught() -> void:
 	distance = INF
 	caught.global_position = rope_end.global_position
 	cat.global_position = rope_end.global_position
-	call_deferred("_disenable", caught, true)
 	call_deferred("_disenable", cat, false)
+	call_deferred("_disenable", caught, true)
 
 
 func _on_loose() -> void:
@@ -77,17 +78,15 @@ func _on_loose() -> void:
 		rope_end.global_position
 		+ Vector2.ONE * (cat.collider_shape.radius * loose_buffer_multiplier)
 	)
-	call_deferred("_disenable", cat, true)
 	call_deferred("_disenable", caught, false)
+	call_deferred("_disenable", cat, true)
 
 
 func _disenable(node: Node, enable: bool) -> void:
-	if enable:
-		node.visible = true
-		node.process_mode = Node.PROCESS_MODE_INHERIT
-		node.collider.disabled = false
-	else:
-		node.visible = false
-		if node is Cat:
-			node.process_mode = Node.PROCESS_MODE_DISABLED
-			node.collider.disabled = true
+	node.visible = enable
+	if node is Cat:
+		node.collider.disabled = not enable
+	if node is Caught:
+		node.collider.disabled = not enable
+	node.set_physics_process(enable)
+	node.set_process(enable)
