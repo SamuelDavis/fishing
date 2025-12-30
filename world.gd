@@ -2,6 +2,8 @@ class_name World
 extends Node2D
 
 @export var pulling_force: float = 20_000.0
+@export var loose_force: float = 1_000.0
+@export var loose_buffer_multiplier: float = 1.2
 
 @onready var rope_anchor: RopeAnchor = $RopeAnchor
 @onready var rope_end: RopeEnd = $RopeAnchor.rope_end
@@ -9,13 +11,15 @@ extends Node2D
 @onready var caught: Caught = $Caught
 
 var _pulling: bool = false
-var _caught: bool = false
-var _max_velocity: float = 0.0
 
 
 func _ready() -> void:
 	cat.target = rope_end
-	rope_end.body_entered.connect(_on_caught)
+	rope_end.body_entered.connect(
+		func(body: Node):
+			if body is Cat:
+				_on_caught()
+	)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -29,30 +33,36 @@ func _physics_process(delta: float) -> void:
 		var k: Vector2 = force * delta * pulling_force
 		rope_anchor.apply_force(k)
 
-	if _caught:
-		cat.global_position = rope_end.global_position
-		cat.sprite.play("tickle")
-		_max_velocity = max(_max_velocity, rope_end.linear_velocity.length())
-		if rope_end.linear_velocity.length() > 1000.0:
-			cat.collider.disabled = false
-			cat.process_mode = Node.PROCESS_MODE_INHERIT
-			_caught = false
-
-
-func _on_caught(body: Node) -> void:
-	if body is Cat:
-		cat.visible = false
-		cat.process_mode = Node.PROCESS_MODE_DISABLED
-		cat.collider.disabled = true
-
+	if caught.visible:
 		caught.global_position = rope_end.global_position
-		caught.visible = true
-		caught.process_mode = Node.PROCESS_MODE_INHERIT
-		caught.collider.disabled = false
-	else:
-		print(body)
+		if rope_end.linear_velocity.length() > loose_force:
+			_on_loose()
+
+
+func _on_caught() -> void:
+	caught.global_position = rope_end.global_position
+	cat.global_position = rope_end.global_position
+	call_deferred("_disenable", caught, true)
+	call_deferred("_disenable", cat, false)
 
 
 func _on_loose() -> void:
-	cat.process_mode = Node.PROCESS_MODE_INHERIT
-	cat.visible = true
+	caught.global_position = rope_end.global_position
+	cat.velocity = rope_end.linear_velocity * 1.2
+	cat.global_position = (
+		rope_end.global_position
+		+ Vector2.ONE * (cat.collider_shape.radius * loose_buffer_multiplier)
+	)
+	call_deferred("_disenable", cat, true)
+	call_deferred("_disenable", caught, false)
+
+
+func _disenable(node: Node, enable: bool) -> void:
+	if enable:
+		node.visible = true
+		node.process_mode = Node.PROCESS_MODE_INHERIT
+		node.collider.disabled = false
+	else:
+		node.visible = false
+		node.process_mode = Node.PROCESS_MODE_DISABLED
+		node.collider.disabled = true

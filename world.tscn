@@ -16,7 +16,6 @@ friction = 2.0
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_fj7yv")
-caught_scene = ExtResource("4_aqk2v")
 
 [node name="WorldBounds" type="StaticBody2D" parent="."]
 collision_mask = 0
@@ -39,6 +38,8 @@ shape = SubResource("WorldBoundaryShape2D_036b0")
 position = Vector2(145, 273)
 
 [node name="Caught" parent="." instance=ExtResource("4_aqk2v")]
+process_mode = 4
+visible = false
 
 [node name="RopeAnchor" parent="." instance=ExtResource("1_f3sb7")]
 position = Vector2(117, 33)

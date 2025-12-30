@@ -9,6 +9,7 @@ extends CharacterBody2D
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collider: CollisionShape2D = $CollisionShape2D
+@onready var collider_shape: CircleShape2D = $CollisionShape2D.shape
 
 var direction: Vector2:
 	get:
@@ -16,7 +17,7 @@ var direction: Vector2:
 
 var distance: float:
 	get:
-		return max(0, direction.length() - collider.shape.radius)
+		return max(0, direction.length() - collider_shape.radius)
 
 
 func _process(_delta: float) -> void:
